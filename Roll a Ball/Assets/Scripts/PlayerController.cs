@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
 	public Text countText;
 	//The win text
 	public Text winText;
+	//The notification text
+	public Text notification;
 	//A reference to the players rigid body component
 	private Rigidbody rb;
 	//The score count
@@ -22,7 +24,9 @@ public class PlayerController : MonoBehaviour {
 		//Initilize the players count and count text
 		count = 0;
 		SetCountText ();
+		//Initilize the other text objects
 		winText.text = "";
+		notification.text = "";
 	}
 
 	//Called Before Rendering a frame
@@ -51,28 +55,33 @@ public class PlayerController : MonoBehaviour {
 			other.gameObject.SetActive (false);
 			count += 1;
 			SetCountText ();
-		} /*else if (other.gameObject.CompareTag ("Pick Up Speed")) {
+		} else if (other.gameObject.CompareTag ("Pick Up Speed")) {
 			//Speed up the player
 			other.gameObject.SetActive (false);
-			speed += 10;
+			speed = 15;
+			notification.text = "Your speed has increased!";
 		} else if (other.gameObject.CompareTag ("Pick Up Slow")) {
 			//Slow down the player
 			other.gameObject.SetActive (false);
-			speed -= 10;
+			speed = 5;
+			notification.text = "Your speed has decreased!";
 		} else if (other.gameObject.CompareTag ("Pick Up Grow")) {
 			//Grow the player
 			other.gameObject.SetActive (false);
-			transform.localScale += new Vector3(0.3f, 0, 0);
+			transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+			notification.text = "Your size has increased!";
 		} else if (other.gameObject.CompareTag ("Pick Up Shrink")) {
 			//Shrink the player
 			other.gameObject.SetActive (false);
-			transform.localScale -= new Vector3(0.3f, 0, 0);
-		}*/
+			transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			notification.text = "Your size has decreased!";
+		}
 	}
 
+	//A function to set the count text and detect if the game has been won
 	void SetCountText() {
 		countText.text = "Count: " + count.ToString ();
-		if (count >= 13) {
+		if (count >= 14) {
 			winText.text = "You Win!";
 		}
 	}
